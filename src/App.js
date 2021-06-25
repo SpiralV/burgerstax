@@ -1,8 +1,8 @@
-import { Component } from 'react'
+import React, { useState } from 'react'
 import IngredientList from './IngredientList'
 import BurgerPane from './BurgerPane'
 
-const ingredients =  [
+const ingredientListing =  [
   {name: 'Kaiser Bun', color: 'saddlebrown'},
   {name: 'Sesame Bun', color: 'sandybrown'},
   {name: 'Gluten Free Bun', color: 'peru'},
@@ -11,44 +11,37 @@ const ingredients =  [
   {name: 'Soy Patty', color: '#3F250B'},
   {name: 'Black Bean Patty', color: '#3F250B'},
   {name: 'Chicken Patty', color: 'burlywood'},
+  {name: '"Cheese"', color: 'goldenrod'},
   {name: 'Lettuce', color: 'lawngreen'},
   {name: 'Tomato', color: 'tomato'},
   {name: 'Bacon', color: 'maroon'},
-  {name: 'Onion', color: 'lightyellow'}
+  {name: 'Onion', color: 'lightyellow'},
+  {name: 'Jalapenos', color: 'green'}
 ]
 
-export default class App extends Component {
-  constructor(props) {
-    super()
-    this.state = {
-      clickedIngredients: []
-    }
-  }
+const App = () => {
+  const [ingredients, setIngredients] = useState([])
 
-  addToBurger = (e) => {
+  const addToBurger = (e) => {
     // get value of clicked ingredient and colour
-    const newIngredient = {name: e.target.innerText, color: e.target.style.backgroundColor}
+    let newIngredient = {name: e.target.innerText, color: e.target.style.backgroundColor}
 
     // create a new array with current clickedIngredients status and append new ingredient
-    const updatedClickedIngredients = this.state.clickedIngredients.concat(newIngredient)
+    let burgyTime = ingredients.concat(newIngredient)
 
-    // setState with new clickedIngredients array
-    this.setState({
-      clickedIngredients: updatedClickedIngredients
-    })
+    setIngredients(burgyTime)
   }
 
-  clearBurger = (e) => {
-    this.setState({
-      clickedIngredients: []
-    })
+  const clearBurger = () => {
+    setIngredients([])
   }
-  render(){
+
     return (
       <div style={{display: "flex", alignItems:"flex-end"}}>
-        <IngredientList ingredients={ingredients} addToBurger={this.addToBurger}/>
-        <BurgerPane clickedIngredients={this.state.clickedIngredients} />
+        <IngredientList ingredients={ingredientListing} addToBurger={addToBurger}/>
+        <BurgerPane addToBurger clearBurger={clearBurger}/>
       </div>
     )
   }
-}
+
+export default App

@@ -39,7 +39,7 @@ const App = () => {
     return (
       <div style={{display: "flex", alignItems:"flex-end"}}>
         <IngredientList ingredients={ingredientListing} addToBurger={addToBurger}/>
-        <BurgerPane addToBurger clearBurger={clearBurger}/>
+        <BurgerPane burgerIngredients={ingredients} clearBurger={clearBurger}/>
       </div>
     )
   }
